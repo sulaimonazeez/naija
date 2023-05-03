@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    {% block meta %} {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="icon" type="image/png" href="{% static 'naijabeat.jpeg' %}"/>
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body{
+        background-color: black;
+      }
+      #blog-title{
+        background-color: green;
+        text-shadow: white 2px 2px 2px;
+      }
+      ul > li{
+        list-style: none;
+        margin: 9px;
+        text-align: center;
+      }
+      ul > li > a > span{
+        font-weight: bold;
+      }
+      ul > li > a:hover{
+        color: green;
+        
+      }
+      ul > li > a{
+        text-decoration: none;
+        color: green;
+        font-size: 15px;
+      }
+      .music-light{
+        background-color: white;
+        display: block;
+        position: relative;
+        padding: 4px;
+        left: 31vw;
+        top: 2vw;
+        width: 3px;
+        height: 3px;
+        animation: blit 0.5s linear infinite;
+        border-radius: 50vw;
+      }
+      @keyframes blit{
+        from {background-color: blue;}
+        to {background-color: red;}
+      }
+      ul{
+        display: flex;
+        justify-content: center;
+        margin-left: -6vw;
+      }
+      .mobile-menu{
+        
+      }
+      .sub-menu{
+        margin-top: -4.5vw;
+        z-index: 1;
+        box-shadow: 5px 0px 5px 0px rgba(0, 0, 0, 0.5)
+      }
+      .d-menu > span{
+        position: relative;
+        top: 2.5vw;
+        color: lightgrey;
+      }
+      .d-menu > li > a{
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .social-link > a{
+        text-decoration: none;
+        color: white;
+        margin: 6px;
+        border-radius: 50vw;
+        padding: 2vw;
+        height: 11vw;
+        width: 11vw;
+        text-align: center;
+        background-color: green;
+      }
+      @media all and (min-width: 960px){
+        .music-light{
+          left: 12vw;
+          top: 4px;
+        }
+        ul{
+          margin-left: -4vw;
+        }
+        .social-link > a{
+          padding: 0vw;
+          width: 6vw;
+          height: 6vw;
+          text-align: center;
+        }
+        .social-link > a > i{
+          margin-top: 10px;
+        }
+         .sub-menu{
+           margin-top: -2vw;
+         }
+         .d-menu > span{
+           top: 1vw;
+         }
+      }
+      @media screen and (orientation:landscape) {
+       /* .sub-menu{
+          margin-top: -2vw;
+        }*/
+       /* .music-light{
+          left: 16vw;
+          top: 1vw;
+        } */
+        /*.social-link > a{
+          height: 8vw;
+          width: 8vw;
+        }*/
+      }
+@media all and (min-device-width: 320px) and (max-width: 960px)
+                   and (orientation: landscape) {
+
+  .sub-menu{
+    margin-top: -3vw;
+  }
+  .music-light{
+    left: 17vw;
+    top: 1vw;
+  }
+          .social-link > a{
+          height: 8vw;
+          width: 8vw;
+        }
+}
+@media all and (min-device-width: 960px)
+                   and (orientation: landscape) {
+          .social-link > a{
+          height: 8vw;
+          width: 8vw;
+        }
+                   }
+    </style>
+  </head>
+  <body>
+    <div id="blog-title" class="p-2">
+         <h1 class="fw-bold text-center"> NAIJABEATS </h1>
+    </div>
+    <div style="font-family: Arial, Helvetica, sans-serif; background-color: white;" class="bg-light mobile-menu">
+      <center>
+       <ul>
+         <span class="music-light"></span>
+         <li><a href='/'><i class="fa fa-home fs-3"></i><br><span>Home</span></a></li>
+         <li><a href='/music'><i class="fa fa-music fs-3"></i><br><span>Music</a></span></li>
+         <li><a href='/movie'><i class="fa fa-film fs-3"></i><br><span>Video</span></a></li>
+         <li><a href='/news'><i class="fa fa-smile-o fs-3"></i><br><span>E!News</span></a></li>
+       </ul>
+       </center>
+    </div>
+    <div class="bg-light sub-menu">
+      <ul class="d-menu">
+         <li><a href="/music">MUSIC</a></li><span>|</span>
+         <li><a href="/trending">TRENDING</a></li><span>|</span>
+         <li><a href="/movie">MOVIES</a></li><span>|</span>
+         <li><a href="/news">NEWS</a></li><span>|</span>
+         <li><a href="/news">E!NEWS</a></li>
+      </ul>
+    </div>
+    <div class="container-fluid">
+      {% block content %} {% endblock %}
+    </div>
+    <footer class="p-3 mt-5 bg-light">
+      <div style="justify-content: center; justify-content: space-evenly" class="d-flex">
+        <div>
+          <h6 class="fw-bold text-success">Hot Categories</h6>
+          <a class="fw-bold" style="text-decoration: none; color: red" href="/about">About Us</a>
+        </div>
+        <div>
+          <h6 class="fw-bold text-success">Information</h6>
+          <a class="fw-bold" style="text-decoration: none; color: red" href="/about">Contact Us</a>
+        </div>
+      </div>
+      <hr>
+      <div style="justify-content: space-evenly; justify-content: center" class="social-link d-flex">
+        <a href="#"><i class="fa fa-twitter fs-1"></i></a>
+        <a href="https://www.facebook.com/afolabi.azeez.127201"><i class="fa fa-facebook fs-1"></i></a>
+        <a href="https://www.instagram.com/afolabi_402/"><i class="fa fa-instagram fs-1"></i></a>
+        <a href="https://wa.me/+2348080891605"><i class="fa fa-whatsapp fs-1"></i></a>
+      </div>
+      <p class="text-secondary text-center">Copyright © 2022 - 2023 | Naijabeats</p>
+    </footer>
+    <script>
+      $(document).ready(() =>{
+        //nothing here
+      })
+      
+    </script>
+  </body>
+</html>

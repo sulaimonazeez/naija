@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ /static/$1 [L]
+
+RewriteEngine on
+RewriteRule ^media/(.*)$ /media/$1 [L]

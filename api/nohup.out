@@ -1,0 +1,11 @@
+[11/Apr/2023 21:53:12] "GET / HTTP/1.1" 200 11128
+[11/Apr/2023 21:53:15] "GET /%7B%E2%84%85%20static%20'naijabeat.jpeg HTTP/1.1" 404 179
+[11/Apr/2023 21:53:36] "GET / HTTP/1.1" 200 11128
+[11/Apr/2023 21:53:37] "GET /%7B%E2%84%85%20static%20'naijabeat.jpeg HTTP/1.1" 404 179
+Performing system checks...
+
+System check identified no issues (0 silenced).
+April 11, 2023 - 21:52:56
+Django version 4.1.7, using settings 'api.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.

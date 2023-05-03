@@ -1,0 +1,244 @@
+{% extends "navbar.html" %}
+
+{℅ load static %}
+{℅ block meta ℅}
+ <meta name="robots" content="noindex">
+ <meta name="googlebot" content="noindex">
+ <meta name="description" content="NaijaBeats NG is one of the fast growing blog websites in Nigeria in terms of Music Promotion, Music Download, News, Entertainment, Movies, Freebeat and Lot...">
+ <meta name="keywords" content="Music, Video, E!New, Comedy">
+ <meta name="author" content="Sulaimon">
+{℅ endblock %}
+{% block title %} Naijabeats | NG {% endblock %}
+{% block content %}
+<style>
+*{
+  box-sizing: border-box;
+}
+  form{
+    margin-top: 7vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  form > .form-control{
+    width: 75%;
+  }
+  #vid-container{
+    
+  }
+  .btn-search{
+    border: none;
+    width: 12vw;
+    margin-left: -12vw;
+  }
+  .img-div > img{
+    width: 32vw;
+    border-radius: 10%;
+    border: solid 1px black;
+  }
+  .image{
+    position: relative;
+  }
+  .image > img{
+      width: 32vw;
+      border-radius: 10%;
+      border: solid 1px black;
+      height: 32vw;
+      height: 32vw;
+      position: relative;
+    }
+  .video-header{
+    background-color: green;
+    padding: 2vw;
+    margin: 1px;
+    border-radius:2%;
+    margin-top: -2vw;
+  }
+  .video-header > a{
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .d-title{
+    font-size: 14px;
+    margin-left: 2vw;
+    color: white;
+    text-shadow: blue 2px 2px 2px;
+    margin-top: 6vw;
+  }
+  .d-title{
+    font-size: 14px;
+    margin-left: 2vw;
+    color: white;
+    text-shadow: blue 2px 2px 2px;
+    margin-top: 6vw;
+  }
+  .round{
+    color: white;
+    background-color: red;
+    height: 7vw;
+    padding: 2px;
+    position: relative;
+    top: 33vw;
+    left: 90%;
+  }
+  h3{
+    text-shadow: white 2px 2px 2px;
+  }
+  .cont-nav > a{
+    text-decoration: none;
+    color: white;
+    border: solid 1px white;
+    padding: 4px;
+    border-radius: 50vw;
+    background-color: black
+  }
+  @media all and (min-width: 960px){
+    .btn-search{
+      width: 7vw;
+      margin-left: -7vw;
+    }
+    .coner-nav{
+    padding: 6px;
+    border: solid 1px white;
+  }
+    form{
+      margin-top: 3vw;
+    }
+    .img-div > img{
+      position: relative;
+      left: 0;
+      height: 15vw;
+      width: 15vw;
+    }
+    .image > img{
+      position: relative;
+      height: 15vw;
+      width: 15vw;
+    }
+    .video-header{
+      padding: 1vw;
+      margin: 3px;
+    }
+    .d-title{
+      font-size: 20px;
+      margin-top: 5vw;
+      position: relative;
+    }
+    .t-title{
+      font-size: 20px;
+      margin-top: 5vw;
+      position: relative;
+      
+    }
+    .round{
+      top: 16vw;
+      height:3vw;
+      left:94%;
+    }
+  }
+  @media all and (min-width: 960px)
+                   and (orientation: landscape) {
+                     .round{
+                       top: 18vw;
+                     }
+                   }
+  @media screen and (orientation:landscape) {
+    .img-div > img{
+      width: 17vw;
+      height: 17vw;
+    }
+    .image > img{
+      width: 17vw;
+      height: 17vw;
+    }
+    /*.round{
+      top: 13vw;
+      height: 5vw;
+    }*/
+    .d-title{
+      position: relative;
+      left: 0;
+    }
+    .t-title{
+      position: relative;
+      left: 0;
+    }
+  }
+  @media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { .video-header{
+    margin: 3px;
+  }
+}
+
+@media all and (min-device-width: 320px) and (max-width: 960px)
+                   and (orientation: landscape) {
+                       .round{
+                         top: 18vw;
+                         left: 93%;
+                       }
+                   }
+</style>
+  <form method="POST">
+    {% csrf_token %}
+    <input placeholder="Search Naijabeats" type="search" name="search" class="form-control">
+    <button class="border rounded btn-search p-1 text-light fw-bold bg-success" type="submit"><i class="fa fa-search"></i></button>
+  </form>
+  <div class="row">
+    <div id="res" class="mt-5 col-sm-9 col-xs-12 col-md-9 col-lg-10">
+      {% if search %}
+         <div id="vid-container">
+        {% for file in search%}
+           <div class="video-header">
+            <a class="d-flex" href='/music/{{file.id}}'><div class="img-div"><img src="{{file.albums.url}}"/></div>
+            
+            <span class="d-title">Download mp3: {{file.artists}} - {{file.titles}}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <h3 style="color: orange" class="text-center">latest Song</h3>
+      <div id="vid-container">
+        {% for file in data%}
+        <span class="round rounded">
+              hot
+
+            </span>
+           <div class="video-header">
+            <a class="d-flex" href='/music/{{file.id}}'><div class="img-div"><img src="{{file.albums.url}}"/></div>
+            
+            <span class="d-title">Download mp3: {{file.artists}} - {{file.titles}}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <h3 style="color: orange" class="text-center mt-5">Latest Movies</h3>
+      <div id="audio-container">
+        {% for file in movie %}
+        <span class="round rounded">
+              hot
+
+            </span>
+           <div class="video-header">
+            <a class="d-flex" href='/movie/{{file.id}}'><div class="image"><img src="{{file.albums.url}}"/></div>
+            
+            <span class="t-title d-title">Download mp4: {{file.titles}}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="border rounded coner-nav mt-5 col-sm-3 col-xs-12 col-md-3 col-lg-2">
+      <h3 style="color: orange" class="text-center mb-3 mt-3 ">Trending Artist</h3>
+      <div class="cont-nav container-fluid">
+        {% for artist in trend %}
+          <a class="p-1" href="/artist/{{artist.id}}">{{artist.artist}}</a>
+        {% endfor %}
+      </div>
+      <br><br>
+    </div>
+  </div>
+{% endblock %}

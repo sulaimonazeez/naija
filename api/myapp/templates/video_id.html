@@ -1,0 +1,105 @@
+{% extends "navbar.html" %}
+{℅ block meta ℅}
+   <meta name="robots" content="noindex">
+ <meta name="googlebot" content="noindex">
+ <meta name="description" content="Download {{data.titles}} - {{data.artist_name}} song on naijabeats">
+ <meta name="keywords" content="Music, Video, E!New, Comedy">
+ <meta name="author" content="Sulaimon">
+{℅ endblock ℅}
+ {% block content %} 
+<style>
+  h3{
+    text-shadow: white 2px 2px 2px;
+  }
+  .img{
+    width: 100%;
+  }
+  #other-song{
+    width: 24vw;
+    height: 24vw;
+  }
+ .left{
+    position: relative;
+    left: 1vw;
+    top: 1vw;
+  }
+  form{
+    margin-top: 7vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  form > .form-control{
+    width: 75%;
+  }
+  .btn-search{
+    border: none;
+    width: 12vw;
+    margin-left: -12vw;
+  }
+  @media all and (min-width: 960px){
+    .img{
+      width: 50%;
+    }
+    .left{
+    font-size: 20px;
+    top: 2.5vw;
+  }
+  #other-song{
+    width: 18vw;
+    height: 18vw;
+  }
+  }
+</style>
+<form method="POST" action="/music/">
+    {% csrf_token %}
+    <input placeholder="Search Naijabeats" type="search" name="search" class="form-control">
+    <button class="border rounded btn-search p-1 text-light fw-bold bg-success" type="submit"><i class="fa fa-search"></i></button>
+  </form>
+<div class="row">
+  <div id="res" class="p-2 rounded mt-5 col-sm-9 col-xs-12 col-md-9 col-lg-10">
+    <div class="">
+    <img src="{{data.albums.url}}" class="img w-100"/><br>
+    <h2 class="text-light">Download mp4: {{data.titles}}</h2>
+    <p class="text-light">posted by <span style="color: green" class="text-success">Naijabeats</span></p>
+    <hr class="text-light">
+    </div>
+    
+    <div class="text-light mt-5">
+      <h4>Artist: {{data.artist_name}}</h4>
+      <h4>Title: <span style="color: blue">{{data.titles}}</span></h4>
+      {% if data.feature %}
+      <h4>Featuring: {{data.feature}}</h4>
+      {% endif %}
+      <h4>Date: {{data.date}}</h4>
+      <h4>Country: <span style="color: red">Naija Music</span></h4>
+    </div>
+    <div class="text-light mt-5">
+      <br><br>
+      <h3 class="text-success text-center">Watch {{data.titles}} Now</h3>
+      <video controls="" class="w-100">
+        <source src="{{data.file.url}}">
+      </video>
+    </div>
+    <div class="mt-5">
+          <br><br><br>
+          <h3 class="text-center text-success">Related Video</h3>
+         {% for datas in other %}
+         <div class="p-1 m-1 border rounded d-flex">
+           <a class="d-flex justify-content-between" style="text-decoration:none; color: white" href='/movie/{{datas.id}}'><div><img class="border rounded" id="other-song" src="{{ datas.albums.url }}" /></div>
+           <div class="left"><strong class="left text-light"> Download mp3: {{datas.titles}} </strong></div>
+           </a>
+         </div>
+         {% endfor %}
+        </div>
+    </div>
+    <div class="coner-nav rounded mt-5 col-sm-3 col-xs-12 col-md-3 col-lg-2">
+      <h3 style="color: orange" class="text-center text-success mb-3 mt-3 ">Trending Artist</h3>
+      <div class="cont-nav container-fluid">
+        {% for artist in trend %}
+          <a href="artist/{{artist.id}}">{{artist.artist}}</a>
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+{% endblock %}

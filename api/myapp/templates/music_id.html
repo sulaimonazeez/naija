@@ -1,0 +1,202 @@
+{% extends "navbar.html" %}
+
+{℅ block meta ℅}
+ <meta name="robots" content="noindex">
+ <meta name="googlebot" content="noindex">
+ <meta name="description" content="Download latest {{data.titles}} - {{data.artists} on naijabeats">
+ <meta name="keywords" content="Music, Video, E!New, Comedy">
+ <meta name="author" content="Sulaimon">
+{℅ endblock ℅}
+{℅ block title %} {{data.titles}} {℅ endblock ℅}
+{% block content %}
+<style>
+  form{
+    margin-top: 7vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+  form > .form-control{
+    width: 75%;
+  }
+  .btn-search{
+    border: none;
+    width: 12vw;
+    margin-left: -12vw;
+  }
+  .img-div > img{
+    width: 32vw;
+    border-radius: 10%;
+    border: solid 1px black;
+  }
+  .video-header{
+    background-color: green;
+    padding: 2vw;
+    border-radius:2%;
+  }
+  .video-header > a{
+    text-decoration: none;
+    font-weight: bold;
+    justify-content: space-evenly;
+  }
+  .d-title{
+    font-size: 14px;
+    margin-left: 2vw;
+    color: white;
+    text-shadow: blue 2px 2px 2px;
+    margin-top: 6vw;
+  }
+  .round{
+    color: white;
+    background-color: red;
+    height: 7vw;
+    padding: 2px;
+    position: relative;
+    top: 27vw;
+    right: -1.7vw;
+  }
+  h3{
+    text-shadow: white 2px 2px 2px;
+  }
+  .cont-nav > a{
+    text-decoration: none;
+    color: white;
+    border: solid 1px white;
+    padding: 4px;
+    border-radius: 50vw;
+    background-color: black
+  }
+  .d-stream{
+    font-size: 5vw;
+  }
+  #down-btn{
+    padding: 2vw;
+  }
+  #other-song{
+    width: 24vw;
+  }
+  .left{
+    position: relative;
+    left: 3vw;
+    top: 0;
+  }
+  @media all and (min-width: 960px){
+    .btn-search{
+      width: 7vw;
+      margin-left: -7vw;
+    }
+     #other-song{
+    width: 22vw;
+    height: 19vw;
+  }
+  .left{
+    font-size: 20px;
+    top: 4vw;
+  }
+   .d-stream{
+    font-size: 3vw;
+  }
+    .coner-nav{
+    box-shadow: white 1px -1px 1px 1px inset;
+    padding: 6px;
+  }
+  .flex{
+    display: flex;
+  }
+  #down-btn{
+    padding: 2vw;
+  }
+  .d-grid{
+    width: 70%;
+    position: relative;
+    left: 10vw;
+    text-align: center;
+  }
+    form{
+      margin-top: 3vw;
+    }
+    .img-div > img{
+      position: relative;
+      left: -2vw;
+      height: 23vw;
+      width: 24vw;
+    }
+    .video-header{
+      padding: 1vw;
+    }
+    .d-title{
+      font-size: 20px;
+      margin-top: 7vw;
+      margin-left:0;
+    }
+    .round{
+      top: 21vw;
+      height:3vw;
+      right:-3vw;
+    }
+  }
+</style>
+  <form method="POST" action="/music/">
+    {% csrf_token %}
+    <input placeholder="Search Naijabeats" type="search" name="search" class="form-control">
+    <button class="border rounded btn-search p-1 text-light fw-bold bg-success" type="submit"><i class="fa fa-search"></i></button>
+  </form>
+  <div class="row">
+    <div id="res" class="rounded border mt-5 col-sm-9 col-xs-12 col-md-9 col-lg-10">
+        <h2 style="color: white" class="text-center mt-3">{{data.artists}} - {{data.titles}} | Download Music MP3</h2>
+        <p class="text-light text-center"><i>{{data.dates}} Music</i></p>
+        <p style="color: green" class="d-stream text-center"><i><strong>(Download and Stream on NaijaBeats</strong></i></p>
+        <img src="{{data.albums.url}}" class="img w-100"/>
+        <h4 class="mt-3 text-center text-success">Download {{data.artists}} - {{data.titles}}</h4>
+        <div class="mt-5 text-primary">
+          <h4>Artist Name: {{data.artists}}</h4>
+          <h4>Track Title: <span class="text-danger">{{data.titles}}</span></h4>
+          <h4>Recorded: {{data.dates}}</h4>
+          <h4>Country: Naija Music</h4>
+        </div>
+        <div class="text-center mt-5">
+        <a href='/whatsapp' class="text-success mt-4 fs-3">Click here to join our whatsapp group</a>
+        </div>
+        <div class="mt-5">
+          <h6 style="color: purple" class="mt-5 text-center mb-2,"><i>Listen to {{data.artists}} - {{data.titles}} MP3 HERE</i></h6>
+          <div style="" class="flex mt-2 justify-content-between justify-content-center">
+          <audio controls="">
+            <source src="{{data.songs.url}}"/>
+          </audio><br>
+          <a id="down-btn" class="text-center fw-bold rounded-pill btn btn-success" href="{{data.songs.url}}">Download Now</a>
+          </div>
+        </div>
+        <div class="mt-5">
+          <h3 class="text-center text-success">Download {{data.artists}} Other SongsSongs</h3>
+         {% for datas in other %}
+         <div class="p-1 m-1 border rounded d-flex">
+           <a class="d-flex justify-content-between" style="text-decoration:none; color: white" href='/music/{{datas.id}}'><div><img class="border rounded" id="other-song" src="{{ datas.albums.url }}" /></div>
+           <strong class="left text-light"> Download mp3: {{datas.artists}} - {{datas.titles}} </strong>
+           </a>
+         </div>
+         {% endfor %}
+        </div>
+        <div class="mt-5">
+          <h3 class="text-center text-success">Download Latest Songs</h3>
+         {% for datas in latest%}
+         <div class="p-1 m-1 border rounded d-flex">
+           <a class="d-flex justify-content-between" style="text-decoration:none; color: white" href='/music/{{datas.id}}'><div><img class="border rounded" id="other-song" src="{{ datas.albums.url }}" />
+           </div><strong class="left text-light mt-1"> Download mp3: {{datas.artists}} - {{datas.titles}} </strong>
+           </a>
+         </div>
+         {% endfor %}
+        </div>
+        <br><br>
+    </div>
+    <div class="coner-nav rounded mt-5 col-sm-3 col-xs-12 col-md-3 col-lg-2">
+      <h3 style="color: orange" class="text-center text-success mb-3 mt-3 ">Trending Artist</h3>
+      <div class="cont-nav container-fluid">
+        {% for artist in trend %}
+          <a href="/artist/{{artist.id}}">{{artist.artist}}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  
+  <!-- not scrapable eject -->
+{% endblock %}
